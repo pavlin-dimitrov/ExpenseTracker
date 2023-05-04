@@ -1,0 +1,63 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.6.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+springBoot {
+	mainClass = 'com.pavcho.ExpenseTracker.ExpenseTrackerApplication'
+}
+
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
+
+group = 'com.pavcho'
+version = '0.0.1-SNAPSHOT'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.0.4'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:3.0.4'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.0.4'
+	implementation 'org.springframework.boot:spring-boot-starter-mail:3.0.4'
+//	implementation 'org.springframework.boot:spring-boot-starter-security:3.0.4'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.0.4'
+	implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.4'
+	implementation 'org.springframework.boot:spring-boot-starter-web:3.0.4'
+
+//	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.0.5.RELEASE'
+
+	implementation 'io.mongock:mongock:5.2.2'
+	implementation 'io.mongock:mongock-springboot:5.2.2'
+	implementation 'io.mongock:mongodb-springdata-v3-driver:5.2.2'
+	implementation 'io.mongock:mongock-core:5.2.2'
+
+	compileOnly 'org.projectlombok:lombok:1.18.26'
+//	runtimeOnly 'com.h2database:h2:2.1.214'
+	annotationProcessor 'org.projectlombok:lombok:1.18.26'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:3.0.4'
+//	testImplementation 'org.springframework.security:spring-security-test:6.0.2'
+}
+
+springBoot {
+	mainClass = 'com.pavcho.ExpenseTracker.ExpenseTrackerApplication'
+}
+
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
