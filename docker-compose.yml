@@ -21,6 +21,9 @@ services:
       - SPRING_DATA_MONGODB_URI=mongodb://my-mongo:27017/expense-tracker?retryWrites=false
     depends_on:
       - my-mongo
+    volumes:                                          #new
+      - ./src:/app/src                                #new
+    command: ./gradlew bootRun --continuous           #new
 
 volumes:
   mongo-data:

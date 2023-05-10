@@ -2,7 +2,6 @@ package com.pavcho.ExpenseTracker.service.contract;
 
 import com.pavcho.ExpenseTracker.entity.User;
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 
@@ -11,5 +10,9 @@ public interface UserService {
   User registerNewUser(User newUser);
 
   User findByEmail(String email);
+
+  List<User> deleteByEmail(String email);
+
+  User editUserInfo(User user);
 
 }
