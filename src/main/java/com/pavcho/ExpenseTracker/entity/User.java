@@ -4,7 +4,7 @@ import com.pavcho.ExpenseTracker.auditor.Auditable;
 import com.pavcho.ExpenseTracker.enums.Gender;
 import com.pavcho.ExpenseTracker.enums.Role;
 import io.mongock.utils.field.Field;
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,7 +33,7 @@ public class User extends Auditable<String> {
   @Field("gender")
   private Gender gender;
   @Field("dob")
-  private OffsetDateTime dob;
+  private LocalDate dob;
   @DBRef
   @Field("image")
   private Picture pictureUrl;

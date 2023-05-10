@@ -7,7 +7,7 @@ import com.pavcho.ExpenseTracker.repository.UserRepository;
 import io.mongock.api.annotations.ChangeUnit;
 import io.mongock.api.annotations.Execution;
 import io.mongock.api.annotations.RollbackExecution;
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ public class UserDatabaseChangeLog {
     user1.setEmail("john.doe@example.com");
     user1.setPassword("password1");
     user1.setGender(Gender.MALE);
-    user1.setDob(OffsetDateTime.parse("1990-01-01T00:00:00Z"));
+    user1.setDob(LocalDate.of(1990,01,01));
     user1.setRole(Role.USER);
 
     // Add the second user
@@ -36,7 +36,7 @@ public class UserDatabaseChangeLog {
     user2.setEmail("jane.doe@example.com");
     user2.setPassword("password2");
     user2.setGender(Gender.FEMALE);
-    user2.setDob(OffsetDateTime.parse("1992-02-01T00:00:00Z"));
+    user2.setDob(LocalDate.of(1992,02,01));
     user2.setRole(Role.USER);
 
     List<User> users = new ArrayList<>();
