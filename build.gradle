@@ -30,6 +30,18 @@ repositories {
 	mavenCentral()
 }
 
+bootJar {
+	dependsOn 'cleanBootJar'
+	archiveFileName = "app.jar"
+}
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.0.4'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:3.0.4'
@@ -40,7 +52,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.4'
 	implementation 'org.springframework.boot:spring-boot-starter-web:3.0.4'
 
-	developmentOnly 'org.springframework.boot:spring-boot-devtools:3.0.4'
+	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-devtools'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools:2.6.4'
 
 //	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.0.5.RELEASE'
 

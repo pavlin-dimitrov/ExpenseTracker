@@ -1,11 +1,17 @@
 package com.pavcho.ExpenseTracker.service.implementation;
 
 import com.pavcho.ExpenseTracker.entity.User;
+import com.pavcho.ExpenseTracker.exception.UserNotFoundException;
 import com.pavcho.ExpenseTracker.repository.UserRepository;
 import com.pavcho.ExpenseTracker.service.contract.UserService;
 import java.util.List;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
   @Autowired
   private final UserRepository userRepository;
+  @Autowired
+  private MongoTemplate mongoTemplate;
 
 
   @Override
@@ -41,13 +49,24 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User editUserInfo(User user) {
-    User editUser = userRepository.findByEmail(user.getEmail());
-
+    Optional<User> optionalUser = userRepository.findById(user.getId());
+    if (optionalUser.isEmpty()) {
+      throw new UserNotFoundException();
+    }
+    User editUser = optionalUser.get();
     editUser.setFirstName(user.getFirstName());
     editUser.setLastName(user.getLastName());
     editUser.setEmail(user.getEmail());
 
-    userRepository.insert(editUser);
+    Query query = new Query();
+    query.addCriteria(Criteria.where("id").is(user.getId()));
+    Update update = new Update();
+    update.set("firstName", user.getFirstName());
+    update.set("lastName", user.getLastName());
+    update.set("email", user.getEmail());
+
+    mongoTemplate.updateFirst(query, update, User.class);
+
     return editUser;
   }
 
