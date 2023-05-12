@@ -43,6 +43,7 @@ configurations {
 }
 
 dependencies {
+	//Spring Boot Starter
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.0.4'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:3.0.4'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.0.4'
@@ -52,21 +53,36 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.4'
 	implementation 'org.springframework.boot:spring-boot-starter-web:3.0.4'
 
+	//Dev Tools
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools:2.6.4'
 
+	//Thymeleaf
 //	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.0.5.RELEASE'
 
+	//Mongock migrations & MongoDB
 	implementation 'io.mongock:mongock:5.2.2'
 	implementation 'io.mongock:mongock-springboot:5.2.2'
 	implementation 'io.mongock:mongodb-springdata-v3-driver:5.2.2'
 	implementation 'io.mongock:mongock-core:5.2.2'
 
+	//MapStruct
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+
+	//Lombok
 	compileOnly 'org.projectlombok:lombok:1.18.26'
-//	runtimeOnly 'com.h2database:h2:2.1.214'
 	annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+	//H2 Database
+//	runtimeOnly 'com.h2database:h2:2.1.214'
+
+	//Tests
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:3.0.4'
+
+	//Spring Security
 //	testImplementation 'org.springframework.security:spring-security-test:6.0.2'
 }
 

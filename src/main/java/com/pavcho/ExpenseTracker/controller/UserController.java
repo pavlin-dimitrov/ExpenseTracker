@@ -1,5 +1,6 @@
 package com.pavcho.ExpenseTracker.controller;
 
+import com.pavcho.ExpenseTracker.dto.UserRegisterDto;
 import com.pavcho.ExpenseTracker.entity.User;
 import com.pavcho.ExpenseTracker.service.contract.UserService;
 import java.util.List;
@@ -29,8 +30,8 @@ public class UserController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<?> registerNewUser(@RequestBody User newUser) {
-    return new ResponseEntity<>(userService.registerNewUser(newUser), HttpStatus.OK);
+  public ResponseEntity<?> registerNewUser(@RequestBody UserRegisterDto userRegisterDto) {
+    return new ResponseEntity<>(userService.registerNewUser(userRegisterDto), HttpStatus.OK);
   }
 
   @GetMapping("/find-by-email")
