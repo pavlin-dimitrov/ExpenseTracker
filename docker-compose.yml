@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  my-mongo:
+    image: mongo:4.4
+    container_name: "my-mongo"
+    environment:
+      - MONGO_INITDB_DATABASE=expense-tracker
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  expense-tracker:
+    build: .
+    image: expense-tracker-app
+    container_name: "expense-tracker"
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://my-mongo:27017/expense-tracker?retryWrites=false
+    depends_on:
+      - my-mongo
+    volumes:
+      - ./src:/app/src
+      - ./gradle:/app/gradle
+      - ./gradlew:/app/gradlew
+      - ./build.gradle:/app/build.gradle
+      - ./settings.gradle:/app/settings.gradle
+
+volumes:
+  mongo-data:
+
+
+#version: '3.8'
+#
+#services:
+#  my-mongo:
+#    image: mongo:4.4
+#    container_name: "my-mongo"
+#    environment:
+#      - MONGO_INITDB_DATABASE=expense-tracker
+#    ports:
+#      - "27018:27017"
+#    volumes:
+#      - mongo-data:/data/db
+#
+#  expense-tracker:
+#    build: .
+#    image: expense-tracker-app
+#    container_name: "expense-tracker"
+#    ports:
+#      - "8081:8081"
+#    environment:
+#      - SPRING_DATA_MONGODB_URI=mongodb://my-mongo:27017/expense-tracker?retryWrites=false
+#    depends_on:
+#      - my-mongo
+#    volumes:                                          #new
+#      - ./src:/app/src                                #new
+#    command: ./gradlew bootRun --continuous           #new
+#
+#volumes:
+#  mongo-data:

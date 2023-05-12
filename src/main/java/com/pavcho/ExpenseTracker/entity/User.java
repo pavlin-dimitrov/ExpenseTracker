@@ -1,11 +1,16 @@
 package com.pavcho.ExpenseTracker.entity;
 
+import com.pavcho.ExpenseTracker.auditor.Auditable;
+import com.pavcho.ExpenseTracker.enums.Gender;
+import com.pavcho.ExpenseTracker.enums.Role;
 import io.mongock.utils.field.Field;
+import java.time.LocalDate;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
@@ -13,7 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document("users")
-public class User {
+public class User extends Auditable<String> {
 
   @Id
   private String id;
@@ -25,5 +30,14 @@ public class User {
   private String email;
   @Field("password")
   private String password;
+  @Field("gender")
+  private Gender gender;
+  @Field("dob")
+  private LocalDate dob;
+  @DBRef
+  @Field("image")
+  private Picture pictureUrl;
+  @Field("role")
+  private Role role;
 
 }
