@@ -5,11 +5,14 @@ import com.pavcho.ExpenseTracker.enums.Gender;
 import com.pavcho.ExpenseTracker.enums.Role;
 import io.mongock.utils.field.Field;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter

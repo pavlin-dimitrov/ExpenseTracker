@@ -1,16 +1,20 @@
 package com.pavcho.ExpenseTracker.service.implementation;
 
+import com.pavcho.ExpenseTracker.dto.UserDto;
 import com.pavcho.ExpenseTracker.dto.UserRegisterDto;
 import com.pavcho.ExpenseTracker.entity.User;
 import com.pavcho.ExpenseTracker.enums.Role;
 import com.pavcho.ExpenseTracker.exception.EmailIsTakenException;
 import com.pavcho.ExpenseTracker.exception.UserNotFoundException;
+import com.pavcho.ExpenseTracker.mapper.UserMapper;
 import com.pavcho.ExpenseTracker.mapper.UserRegisterMapper;
 import com.pavcho.ExpenseTracker.repository.UserRepository;
 import com.pavcho.ExpenseTracker.service.contract.UserService;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -31,8 +35,11 @@ public class UserServiceImpl implements UserService {
 
 
   @Override
-  public List<User> getAllUsers() {
-    return userRepository.findAll();
+  public List<UserDto> getAllUsers() {
+    List<User> allUsers = userRepository.findAll();
+
+    return allUsers.stream().map(UserMapper.INSTANCE::mapUserToUserDto).collect(
+        Collectors.toList());
   }
 
   @Override

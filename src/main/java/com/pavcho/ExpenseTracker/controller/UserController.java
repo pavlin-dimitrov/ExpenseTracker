@@ -1,9 +1,11 @@
 package com.pavcho.ExpenseTracker.controller;
 
+import com.pavcho.ExpenseTracker.dto.UserDto;
 import com.pavcho.ExpenseTracker.dto.UserRegisterDto;
 import com.pavcho.ExpenseTracker.entity.User;
 import com.pavcho.ExpenseTracker.service.contract.UserService;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,12 +27,12 @@ public class UserController {
   @Autowired private final UserService userService;
 
   @GetMapping("/all")
-  public ResponseEntity<List<User>> getAllExpenses() {
+  public ResponseEntity<List<UserDto>> getAllExpenses() {
     return ResponseEntity.ok(userService.getAllUsers());
   }
 
   @PostMapping("/register")
-  public ResponseEntity<?> registerNewUser(@RequestBody UserRegisterDto userRegisterDto) {
+  public ResponseEntity<?> registerNewUser(@RequestBody @Valid UserRegisterDto userRegisterDto) {
     return new ResponseEntity<>(userService.registerNewUser(userRegisterDto), HttpStatus.OK);
   }
 
