@@ -5,6 +5,8 @@ import com.pavcho.ExpenseTracker.enums.Gender;
 import com.pavcho.ExpenseTracker.enums.Role;
 import io.mongock.utils.field.Field;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,9 +36,8 @@ public class User extends Auditable<String> {
   private Gender gender;
   @Field("dob")
   private LocalDate dob;
-  @DBRef
-  @Field("image")
-  private Picture pictureUrl;
+  @Field("pictureUrl")
+  private String pictureUrl;
   @Field("role")
   private Role role;
 
