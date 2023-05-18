@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ErrorHandlingControllerAdvice extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler({UserNotFoundException.class})
+  @ExceptionHandler({UserNotFoundException.class, InvalidZoneIdException.class})
   public ResponseEntity<ErrorResponseDto> handleNotFoundException(RuntimeException ex) {
     return new ResponseEntity<>(
         new ErrorResponseDto(HttpStatus.NOT_FOUND, ex.getMessage(), LocalDateTime.now()),

@@ -6,9 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -18,24 +16,16 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Auditable<T> {
-
-  @CreatedBy
-  protected T createdBy;
+public abstract class AuditableWithoutUser<T> {
 
   @CreatedDate
   protected Long createdAt;
 
-  @LastModifiedBy
-  protected T lastModifiedBy;
-
   @LastModifiedDate
   protected Long lastModifiedAt;
 
-  public Auditable(Long createdAt, T createdBy, T lastModifiedBy, Long lastModifiedAt) {
+  public AuditableWithoutUser(Long createdAt, Long lastModifiedAt) {
     this.createdAt = createdAt;
-    this.createdBy = createdBy;
-    this.lastModifiedBy = lastModifiedBy;
     this.lastModifiedAt = lastModifiedAt;
   }
 }

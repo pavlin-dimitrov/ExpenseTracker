@@ -1,5 +1,6 @@
 package com.pavcho.ExpenseTracker.service.contract;
 
+import com.pavcho.ExpenseTracker.dto.UserCreatedDto;
 import com.pavcho.ExpenseTracker.dto.UserDto;
 import com.pavcho.ExpenseTracker.dto.UserRegisterDto;
 import com.pavcho.ExpenseTracker.entity.User;
@@ -16,5 +17,7 @@ public interface UserService {
   List<User> deleteByEmail(String email);
 
   User editUserInfo(User user);
+
+  List<UserCreatedDto> getAllCreatedDatesOfUsers();
 
 }

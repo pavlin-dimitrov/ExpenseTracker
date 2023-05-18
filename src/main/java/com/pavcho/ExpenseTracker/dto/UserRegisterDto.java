@@ -49,4 +49,7 @@ public class UserRegisterDto {
 
   @PastDate
   private LocalDate dob;
+
+  @NotBlank
+  private String zoneId;
 }

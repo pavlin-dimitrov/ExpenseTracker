@@ -22,49 +22,48 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-@ChangeUnit(order = "005", id = "test1", author = "pavCho")
+@ChangeUnit(order = "008", id = "test7", author = "pavCho")
 public class DatabaseChangeLog {
 
   @Execution
   public void seedDatabase(ExpenseRepository expenseRepository, UserRepository userRepository) {
-    User user;
-    if(userRepository.count() == 0) {
-      user = new User();
-      user.setFirstName("John");
-      user.setLastName("Doe");
-      user.setEmail("john.doe@example.com");
-      user.setPassword("password1");
-      user.setGender(Gender.MALE);
-      user.setDob(LocalDate.of(1990, 01, 01));
-      user.setRole(Role.USER);
+    User user = new User();
+    user.setFirstName("Johny");
+    user.setLastName("Doeee");
+    user.setEmail("john.doe@example.com");
+    user.setPassword("password1");
+    user.setGender(Gender.MALE);
+    user.setDob(LocalDate.of(1990, 01, 01));
+    user.setRole(Role.USER);
+    user.setZoneId("EET");
+
+    if (userRepository.findByEmail(user.getEmail()).isEmpty()) {
       userRepository.save(user);
-    } else {
       user = userRepository.findAll().get(0);
     }
 
-    System.out.println("User ID: " + user.getId());
-
-    if (expenseRepository.count() == 0) {
       List<Expense> expenseList = new ArrayList<>();
-      expenseList.add(createNewExpense("Movie Tickets", ENTERTAINMENT, BigDecimal.valueOf(40), user.getId()));
-      expenseList.add(createNewExpense("Dinner", RESTAURANT, BigDecimal.valueOf(60), user.getId()));
+      expenseList.add(createNewExpense("Movie 007 Tickets", ENTERTAINMENT, BigDecimal.valueOf(40), user.getId()));
+      expenseList.add(createNewExpense("Dinner 007", RESTAURANT, BigDecimal.valueOf(60), user.getId()));
       expenseList.add(createNewExpense("Netflix", ENTERTAINMENT, BigDecimal.valueOf(10), user.getId()));
       expenseList.add(createNewExpense("Gym", MISC, BigDecimal.valueOf(20), user.getId()));
       expenseList.add(createNewExpense("Internet", UTILITIES, BigDecimal.valueOf(30), user.getId()));
       expenseRepository.insert(expenseList);
-    }
+
+      expenseList.stream().filter(expense -> expenseRepository.findByName(expense.getExpenseName())
+          .isEmpty()).forEach(expenseRepository::save);
   }
 
   @RollbackExecution
   public void rollback() {}
 
-  private Expense createNewExpense(String expenseName, ExpenseCategory expenseCategory, BigDecimal amount, String userId) {
+  private Expense createNewExpense(
+      String expenseName, ExpenseCategory expenseCategory, BigDecimal amount, String userId) {
     Expense expense = new Expense();
     expense.setExpenseName(expenseName);
     expense.setExpenseAmount(amount);
     expense.setExpenseCategory(expenseCategory);
-    expense.setUserId(userId);  // set the user id
+    expense.setUserId(userId); // set the user id
     return expense;
   }
 }
-

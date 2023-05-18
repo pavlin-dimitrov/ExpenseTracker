@@ -1,9 +1,11 @@
 package com.pavcho.ExpenseTracker.controller;
 
+import com.pavcho.ExpenseTracker.dto.UserCreatedDto;
 import com.pavcho.ExpenseTracker.dto.UserDto;
 import com.pavcho.ExpenseTracker.dto.UserRegisterDto;
 import com.pavcho.ExpenseTracker.entity.User;
 import com.pavcho.ExpenseTracker.service.contract.UserService;
+import java.time.ZoneId;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +51,17 @@ public class UserController {
   @PutMapping("/edit-user")
   public ResponseEntity<User> editUserInfo(@RequestBody User user) {
     return new ResponseEntity<>(userService.editUserInfo(user), HttpStatus.OK);
+  }
+
+  @GetMapping("/created")
+  public ResponseEntity<List<UserCreatedDto>> getCreated() {
+    return new ResponseEntity<>(userService.getAllCreatedDatesOfUsers(), HttpStatus.OK);
+  }
+
+  @GetMapping("/time")
+  public ResponseEntity<ZoneId> timeZone() {
+    ZoneId defaultZoneId = ZoneId.systemDefault();
+    System.out.println("System Default Timezone: " + defaultZoneId);
+    return new ResponseEntity<>(defaultZoneId, HttpStatus.OK);
   }
 }
