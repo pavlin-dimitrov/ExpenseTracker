@@ -1,9 +1,11 @@
 package com.pavcho.ExpenseTracker.controller;
 
-import com.pavcho.ExpenseTracker.dto.UserDto;
-import com.pavcho.ExpenseTracker.dto.UserRegisterDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserCreatedDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserRegisterDto;
 import com.pavcho.ExpenseTracker.entity.User;
 import com.pavcho.ExpenseTracker.service.contract.UserService;
+import java.time.ZoneId;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +34,10 @@ public class UserController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<?> registerNewUser(@RequestBody @Valid UserRegisterDto userRegisterDto) {
-    return new ResponseEntity<>(userService.registerNewUser(userRegisterDto), HttpStatus.OK);
+  public ResponseEntity<?> registerNewUser(
+      @RequestBody @Valid UserRegisterDto userRegisterDto, @RequestParam String zoneId) {
+    return new ResponseEntity<>(
+        userService.registerNewUser(userRegisterDto, zoneId), HttpStatus.OK);
   }
 
   @GetMapping("/find-by-email")
@@ -50,4 +54,5 @@ public class UserController {
   public ResponseEntity<User> editUserInfo(@RequestBody User user) {
     return new ResponseEntity<>(userService.editUserInfo(user), HttpStatus.OK);
   }
+  
 }

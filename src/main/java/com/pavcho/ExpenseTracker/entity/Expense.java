@@ -1,14 +1,15 @@
 package com.pavcho.ExpenseTracker.entity;
 
-import com.pavcho.ExpenseTracker.auditor.Auditable;
+import com.pavcho.ExpenseTracker.auditor.AuditableWithoutUser;
 import com.pavcho.ExpenseTracker.enums.ExpenseCategory;
 import io.mongock.utils.field.Field;
+import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
@@ -16,7 +17,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document("expense")
-public class Expense extends Auditable<String> {
+public class Expense extends AuditableWithoutUser<String> implements Serializable {
   @Id
   private String id;
   @Field("user_id")
@@ -27,4 +28,8 @@ public class Expense extends Auditable<String> {
   private ExpenseCategory expenseCategory;
   @Field("amount")
   private BigDecimal expenseAmount;
+  @Field("unit")
+  private String unit;
+  @Field("quantity")
+  private Double quantity;
 }

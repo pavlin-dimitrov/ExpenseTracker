@@ -1,4 +1,4 @@
-package com.pavcho.ExpenseTracker.dto;
+package com.pavcho.ExpenseTracker.dto.response_dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;

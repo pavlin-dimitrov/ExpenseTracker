@@ -1,20 +1,24 @@
 package com.pavcho.ExpenseTracker.service.implementation;
 
-import com.pavcho.ExpenseTracker.dto.UserDto;
-import com.pavcho.ExpenseTracker.dto.UserRegisterDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserCreatedDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserRegisterDto;
 import com.pavcho.ExpenseTracker.entity.User;
 import com.pavcho.ExpenseTracker.enums.Role;
 import com.pavcho.ExpenseTracker.exception.EmailIsTakenException;
+import com.pavcho.ExpenseTracker.exception.InvalidZoneIdException;
 import com.pavcho.ExpenseTracker.exception.UserNotFoundException;
+import com.pavcho.ExpenseTracker.mapper.UserCreatedMapper;
 import com.pavcho.ExpenseTracker.mapper.UserMapper;
 import com.pavcho.ExpenseTracker.mapper.UserRegisterMapper;
 import com.pavcho.ExpenseTracker.repository.UserRepository;
 import com.pavcho.ExpenseTracker.service.contract.UserService;
+import java.time.DateTimeException;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -43,7 +47,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserRegisterDto registerNewUser(UserRegisterDto userRegisterDto) {
+  public UserRegisterDto registerNewUser(UserRegisterDto userRegisterDto, String zoneId) {
     checkForExistingEmail(userRegisterDto);
     User newUser = UserRegisterMapper.INSTANCE.mapUserRegisterDtoToUser(userRegisterDto);
     newUser.setPassword(userRegisterDto.getPassword());
@@ -53,6 +57,12 @@ public class UserServiceImpl implements UserService {
     if (newUser.getRole() == null) {
       newUser.setRole(Role.USER);
     }
+
+    if (!isValidZoneId(zoneId)) {
+      throw new InvalidZoneIdException();
+    }
+
+    newUser.setZoneId(zoneId);
     userRepository.insert(newUser);
     return UserRegisterMapper.INSTANCE.mapUserToUserRegisterDto(newUser);
   }
@@ -106,6 +116,15 @@ public class UserServiceImpl implements UserService {
         userRepository.findByEmail(userRegisterDto.getEmail());
     if (accountByEmail.isPresent()) {
       throw new EmailIsTakenException();
+    }
+  }
+
+  private static boolean isValidZoneId(String zoneId) {
+    try {
+      ZoneId.of(zoneId);
+      return true;
+    } catch (DateTimeException ex) {
+      return false;
     }
   }
 
