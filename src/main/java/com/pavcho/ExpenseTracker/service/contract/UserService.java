@@ -1,6 +1,5 @@
 package com.pavcho.ExpenseTracker.service.contract;
 
-import com.pavcho.ExpenseTracker.dto.user_dto.UserCreatedDto;
 import com.pavcho.ExpenseTracker.dto.user_dto.UserDto;
 import com.pavcho.ExpenseTracker.dto.user_dto.UserRegisterDto;
 import com.pavcho.ExpenseTracker.entity.User;

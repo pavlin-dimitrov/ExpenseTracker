@@ -48,6 +48,11 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.26'
 	annotationProcessor 'org.projectlombok:lombok:1.18.26'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.4'
+
+	//SWAGGER
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+//	compileOnly group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+//	compileOnly group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
 }
 
 springBoot {
