@@ -1,4 +1,4 @@
-package com.pavcho.ExpenseTracker.dto;
+package com.pavcho.ExpenseTracker.dto.user_dto;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

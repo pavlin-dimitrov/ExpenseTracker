@@ -1,8 +1,8 @@
 package com.pavcho.ExpenseTracker.service.implementation;
 
-import com.pavcho.ExpenseTracker.dto.UserCreatedDto;
-import com.pavcho.ExpenseTracker.dto.UserDto;
-import com.pavcho.ExpenseTracker.dto.UserRegisterDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserCreatedDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserRegisterDto;
 import com.pavcho.ExpenseTracker.entity.User;
 import com.pavcho.ExpenseTracker.enums.Role;
 import com.pavcho.ExpenseTracker.exception.EmailIsTakenException;
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserRegisterDto registerNewUser(UserRegisterDto userRegisterDto) {
+  public UserRegisterDto registerNewUser(UserRegisterDto userRegisterDto, String zoneId) {
     checkForExistingEmail(userRegisterDto);
     User newUser = UserRegisterMapper.INSTANCE.mapUserRegisterDtoToUser(userRegisterDto);
     newUser.setPassword(userRegisterDto.getPassword());
@@ -58,11 +58,11 @@ public class UserServiceImpl implements UserService {
       newUser.setRole(Role.USER);
     }
 
-    if (!isValidZoneId(userRegisterDto.getZoneId())) {
+    if (!isValidZoneId(zoneId)) {
       throw new InvalidZoneIdException();
     }
 
-    newUser.setZoneId(userRegisterDto.getZoneId());
+    newUser.setZoneId(zoneId);
     userRepository.insert(newUser);
     return UserRegisterMapper.INSTANCE.mapUserToUserRegisterDto(newUser);
   }
@@ -111,15 +111,6 @@ public class UserServiceImpl implements UserService {
     return editUser;
   }
 
-  @Override
-  public List<UserCreatedDto> getAllCreatedDatesOfUsers() {
-    //TODO the time zone must came from the principal!
-    User principal = userRepository.findByEmail("pavlin.k.dimitrov@gmail.com").orElseThrow(UserNotFoundException::new);
-    List<User> allUsers = userRepository.findAll();
-    return allUsers.stream().map(user -> UserCreatedMapper.INSTANCE.mapUserToUserCreatedDto(user, principal.getZoneId())).collect(
-        Collectors.toList());
-  }
-
   private void checkForExistingEmail(UserRegisterDto userRegisterDto) {
     Optional<User> accountByEmail =
         userRepository.findByEmail(userRegisterDto.getEmail());
@@ -136,5 +127,5 @@ public class UserServiceImpl implements UserService {
       return false;
     }
   }
-  
+
 }

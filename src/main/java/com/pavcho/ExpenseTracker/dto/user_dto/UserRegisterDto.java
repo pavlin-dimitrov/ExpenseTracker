@@ -1,4 +1,4 @@
-package com.pavcho.ExpenseTracker.dto;
+package com.pavcho.ExpenseTracker.dto.user_dto;
 
 import com.pavcho.ExpenseTracker.dob_validator.PastDate;
 import com.pavcho.ExpenseTracker.enums.Gender;
@@ -49,7 +49,4 @@ public class UserRegisterDto {
 
   @PastDate
   private LocalDate dob;
-
-  @NotBlank
-  private String zoneId;
 }

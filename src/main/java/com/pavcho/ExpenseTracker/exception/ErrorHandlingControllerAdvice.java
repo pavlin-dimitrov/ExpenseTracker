@@ -1,7 +1,7 @@
 package com.pavcho.ExpenseTracker.exception;
 
 import com.mongodb.lang.NonNull;
-import com.pavcho.ExpenseTracker.dto.ErrorResponseDto;
+import com.pavcho.ExpenseTracker.dto.response_dto.ErrorResponseDto;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;

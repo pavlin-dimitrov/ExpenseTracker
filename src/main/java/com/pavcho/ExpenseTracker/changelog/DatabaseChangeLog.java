@@ -1,4 +1,4 @@
-package com.pavcho.ExpenseTracker.changelogs;
+package com.pavcho.ExpenseTracker.changelog;
 
 import static com.pavcho.ExpenseTracker.enums.ExpenseCategory.ENTERTAINMENT;
 import static com.pavcho.ExpenseTracker.enums.ExpenseCategory.MISC;
@@ -43,11 +43,11 @@ public class DatabaseChangeLog {
     }
 
       List<Expense> expenseList = new ArrayList<>();
-      expenseList.add(createNewExpense("Movie 007 Tickets", ENTERTAINMENT, BigDecimal.valueOf(40), user.getId()));
-      expenseList.add(createNewExpense("Dinner 007", RESTAURANT, BigDecimal.valueOf(60), user.getId()));
-      expenseList.add(createNewExpense("Netflix", ENTERTAINMENT, BigDecimal.valueOf(10), user.getId()));
-      expenseList.add(createNewExpense("Gym", MISC, BigDecimal.valueOf(20), user.getId()));
-      expenseList.add(createNewExpense("Internet", UTILITIES, BigDecimal.valueOf(30), user.getId()));
+      expenseList.add(createNewExpense("Movie 007 Tickets", ENTERTAINMENT, BigDecimal.valueOf(40), user.getId(), "tickets", 2d));
+      expenseList.add(createNewExpense("Dinner 007", RESTAURANT, BigDecimal.valueOf(60), user.getId(), "", 1d));
+      expenseList.add(createNewExpense("Netflix", ENTERTAINMENT, BigDecimal.valueOf(10), user.getId(), "", 1d));
+      expenseList.add(createNewExpense("Gym", MISC, BigDecimal.valueOf(20), user.getId(), "", 1d));
+      expenseList.add(createNewExpense("Internet", UTILITIES, BigDecimal.valueOf(30), user.getId(), "", 1d));
       expenseRepository.insert(expenseList);
 
       expenseList.stream().filter(expense -> expenseRepository.findByName(expense.getExpenseName())
@@ -58,12 +58,14 @@ public class DatabaseChangeLog {
   public void rollback() {}
 
   private Expense createNewExpense(
-      String expenseName, ExpenseCategory expenseCategory, BigDecimal amount, String userId) {
+      String expenseName, ExpenseCategory expenseCategory, BigDecimal amount, String userId, String unit, Double quantity) {
     Expense expense = new Expense();
     expense.setExpenseName(expenseName);
     expense.setExpenseAmount(amount);
     expense.setExpenseCategory(expenseCategory);
     expense.setUserId(userId); // set the user id
+    expense.setUnit(unit);
+    expense.setQuantity(quantity);
     return expense;
   }
 }

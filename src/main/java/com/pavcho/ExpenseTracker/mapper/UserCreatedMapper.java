@@ -1,6 +1,6 @@
 package com.pavcho.ExpenseTracker.mapper;
 
-import com.pavcho.ExpenseTracker.dto.UserCreatedDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserCreatedDto;
 import com.pavcho.ExpenseTracker.entity.User;
 import java.time.Instant;
 import java.time.LocalDateTime;

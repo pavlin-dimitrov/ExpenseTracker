@@ -1,8 +1,8 @@
 package com.pavcho.ExpenseTracker.controller;
 
-import com.pavcho.ExpenseTracker.dto.UserCreatedDto;
-import com.pavcho.ExpenseTracker.dto.UserDto;
-import com.pavcho.ExpenseTracker.dto.UserRegisterDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserCreatedDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserRegisterDto;
 import com.pavcho.ExpenseTracker.entity.User;
 import com.pavcho.ExpenseTracker.service.contract.UserService;
 import java.time.ZoneId;
@@ -34,8 +34,10 @@ public class UserController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<?> registerNewUser(@RequestBody @Valid UserRegisterDto userRegisterDto) {
-    return new ResponseEntity<>(userService.registerNewUser(userRegisterDto), HttpStatus.OK);
+  public ResponseEntity<?> registerNewUser(
+      @RequestBody @Valid UserRegisterDto userRegisterDto, @RequestParam String zoneId) {
+    return new ResponseEntity<>(
+        userService.registerNewUser(userRegisterDto, zoneId), HttpStatus.OK);
   }
 
   @GetMapping("/find-by-email")
@@ -52,16 +54,5 @@ public class UserController {
   public ResponseEntity<User> editUserInfo(@RequestBody User user) {
     return new ResponseEntity<>(userService.editUserInfo(user), HttpStatus.OK);
   }
-
-  @GetMapping("/created")
-  public ResponseEntity<List<UserCreatedDto>> getCreated() {
-    return new ResponseEntity<>(userService.getAllCreatedDatesOfUsers(), HttpStatus.OK);
-  }
-
-  @GetMapping("/time")
-  public ResponseEntity<ZoneId> timeZone() {
-    ZoneId defaultZoneId = ZoneId.systemDefault();
-    System.out.println("System Default Timezone: " + defaultZoneId);
-    return new ResponseEntity<>(defaultZoneId, HttpStatus.OK);
-  }
+  
 }

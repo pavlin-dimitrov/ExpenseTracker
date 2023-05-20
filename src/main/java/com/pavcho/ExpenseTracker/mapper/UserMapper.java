@@ -1,6 +1,6 @@
 package com.pavcho.ExpenseTracker.mapper;
 
-import com.pavcho.ExpenseTracker.dto.UserDto;
+import com.pavcho.ExpenseTracker.dto.user_dto.UserDto;
 import com.pavcho.ExpenseTracker.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
