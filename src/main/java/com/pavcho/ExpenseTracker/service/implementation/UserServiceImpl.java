@@ -1,6 +1,5 @@
 package com.pavcho.ExpenseTracker.service.implementation;
 
-import com.pavcho.ExpenseTracker.dto.user_dto.UserCreatedDto;
 import com.pavcho.ExpenseTracker.dto.user_dto.UserDto;
 import com.pavcho.ExpenseTracker.dto.user_dto.UserRegisterDto;
 import com.pavcho.ExpenseTracker.entity.User;
@@ -8,7 +7,6 @@ import com.pavcho.ExpenseTracker.enums.Role;
 import com.pavcho.ExpenseTracker.exception.EmailIsTakenException;
 import com.pavcho.ExpenseTracker.exception.InvalidZoneIdException;
 import com.pavcho.ExpenseTracker.exception.UserNotFoundException;
-import com.pavcho.ExpenseTracker.mapper.UserCreatedMapper;
 import com.pavcho.ExpenseTracker.mapper.UserMapper;
 import com.pavcho.ExpenseTracker.mapper.UserRegisterMapper;
 import com.pavcho.ExpenseTracker.repository.UserRepository;
